@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  bobby-api:
+  - apiVersion: v2
+    created: "2025-06-10T17:46:22.585184739Z"
+    description: A Helm chart for Kubernetes
+    digest: b10e9d9bee1f56d26b929c0c2f84fe55e91866f97f25e816b09714adba1b898b
+    name: bobby-api
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/bobby-api-1.0.0/bobby-api-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-06-10T17:46:22.58519073Z"
