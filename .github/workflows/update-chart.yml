@@ -1,0 +1,68 @@
+name: 📦 Update Helm Chart
+
+on:
+  workflow_call:
+    inputs:
+      chart_name:
+        description: "Name of the chart to update (e.g. nstuning-api)"
+        type: string
+        required: true
+      tag:
+        description: "New image tag (e.g. v1.5.3)"
+        type: string
+        required: true
+    secrets:
+      CHARTS_PAT:
+        required: true
+
+permissions: {}
+
+jobs:
+  update-chart:
+    name: Update ${{ inputs.chart_name }} chart
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout tumogroup-charts
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: sondresjolyst/tumogroup-charts
+          token: ${{ secrets.CHARTS_PAT }}
+
+      - name: Bump chart version and update image tag
+        id: bump
+        run: |
+          CHART="charts/${{ inputs.chart_name }}/Chart.yaml"
+          VALUES="charts/${{ inputs.chart_name }}/values.yaml"
+
+          CURRENT=$(grep '^version:' "$CHART" | awk '{print $2}')
+          MAJOR=$(echo "$CURRENT" | cut -d. -f1)
+          MINOR=$(echo "$CURRENT" | cut -d. -f2)
+          PATCH=$(echo "$CURRENT" | cut -d. -f3)
+          NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+
+          sed -i "s/^version: .*/version: $NEW_VERSION/" "$CHART"
+          sed -i "s/tag: \".*\"/tag: \"${{ inputs.tag }}\"/" "$VALUES"
+
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request
+        run: |
+          BRANCH="chore/update-${{ inputs.chart_name }}-${{ inputs.tag }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "charts/${{ inputs.chart_name }}/Chart.yaml" "charts/${{ inputs.chart_name }}/values.yaml"
+          git commit -m "chore: update ${{ inputs.chart_name }} to ${{ inputs.tag }}"
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --repo sondresjolyst/tumogroup-charts \
+            --title "chore: update ${{ inputs.chart_name }} to ${{ inputs.tag }}" \
+            --body "Updates \`${{ inputs.chart_name }}\` image tag to \`${{ inputs.tag }}\` and bumps chart version to \`${{ steps.bump.outputs.new_version }}\`." \
+            --base main \
+            --head "$BRANCH"
+        env:
+          GH_TOKEN: ${{ secrets.CHARTS_PAT }}
