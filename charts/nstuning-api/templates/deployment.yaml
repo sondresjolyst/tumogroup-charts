@@ -40,6 +40,8 @@ spec:
             {{- if .Values.persistence.enabled }}
             - name: Storage__ReportsPath
               value: {{ .Values.persistence.mountPath | quote }}
+            - name: Storage__ImagesPath
+              value: {{ .Values.persistence.imagesPath | quote }}
             {{- end }}
             {{- range .Values.env }}
             - name: {{ .name }}
@@ -52,6 +54,9 @@ spec:
           volumeMounts:
             - name: reports
               mountPath: {{ .Values.persistence.mountPath }}
+            - name: reports
+              mountPath: {{ .Values.persistence.imagesPath }}
+              subPath: {{ .Values.persistence.imagesSubPath }}
           {{- end }}
       {{- if .Values.persistence.enabled }}
       volumes:

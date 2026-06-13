@@ -38,6 +38,8 @@ persistence:
   accessMode: ReadWriteMany
   size: 20Gi
   mountPath: /data/reports
+  imagesPath: /data/images
+  imagesSubPath: images
 
 resources: {}
 
