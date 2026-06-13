@@ -12,6 +12,15 @@ entries:
     version: 1.0.0
   nstuning-api:
   - apiVersion: v2
+    created: "2026-06-13T08:29:08.970336648Z"
+    description: A Helm chart for Kubernetes
+    digest: 20d35c75ef03aba31c3a78c05cfb405848d174c1b1292bc6e6b47d4406e7d3df
+    name: nstuning-api
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/nstuning-api-0.1.3/nstuning-api-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2026-06-13T07:18:16.632810737Z"
     description: A Helm chart for Kubernetes
     digest: 520bcff13c660be98ef4cc2ed4124a5ef0f273e8703361f84cdd1d5347dde545
@@ -66,4 +75,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/nstuning-app-0.1.0/nstuning-app-0.1.0.tgz
     version: 0.1.0
-generated: "2026-06-13T07:18:16.632828012Z"
+generated: "2026-06-13T08:29:08.970362937Z"
