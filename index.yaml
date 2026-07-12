@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   bobby-api:
   - apiVersion: v2
+    created: "2026-07-12T15:19:31.945454891Z"
+    description: A Helm chart for Kubernetes
+    digest: 910b47bf72f4074b7a1749f5b1daf00f6e3a8f4f0f8819f3333536f6902d01de
+    name: bobby-api
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/bobby-api-1.0.1/bobby-api-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2025-06-10T17:46:22.585184739Z"
     description: A Helm chart for Kubernetes
     digest: b10e9d9bee1f56d26b929c0c2f84fe55e91866f97f25e816b09714adba1b898b
@@ -11,6 +20,15 @@ entries:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/bobby-api-1.0.0/bobby-api-1.0.0.tgz
     version: 1.0.0
   nstuning-api:
+  - apiVersion: v2
+    created: "2026-07-12T15:19:32.104741599Z"
+    description: A Helm chart for Kubernetes
+    digest: e25cf8ed69ae1ccfafe714ffe6fc220dedc476180e376833ee80ea0f747eb5a2
+    name: nstuning-api
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/nstuning-api-0.1.10/nstuning-api-0.1.10.tgz
+    version: 0.1.10
   - apiVersion: v2
     created: "2026-06-22T18:51:35.25640667Z"
     description: A Helm chart for Kubernetes
@@ -192,4 +210,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/nstuning-app-0.1.0/nstuning-app-0.1.0.tgz
     version: 0.1.0
-generated: "2026-06-22T19:27:15.790614739Z"
+generated: "2026-07-12T15:19:32.104923209Z"
