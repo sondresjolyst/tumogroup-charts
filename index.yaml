@@ -12,6 +12,15 @@ entries:
     version: 0.1.0
   altinnendata-app:
   - apiVersion: v2
+    created: "2026-08-10T21:50:12.651429043Z"
+    description: A Helm chart for Kubernetes
+    digest: 6d23bf9e29e6a00d6a6c0c2d7c3b001b0d7ce385b15e621c0fb90ae4d79041bf
+    name: altinnendata-app
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/altinnendata-app-0.1.1/altinnendata-app-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2026-08-10T21:13:19.579680824Z"
     description: A Helm chart for Kubernetes
     digest: e7fd4922daa602f69e40b9ea74254e805b3b7d84af7f11f7b2dcb1400d04274a
@@ -284,4 +293,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/nstuning-app-0.1.1/nstuning-app-0.1.1.tgz
     version: 0.1.1
-generated: "2026-08-10T21:32:12.72171161Z"
+generated: "2026-08-10T21:50:12.651465912Z"
