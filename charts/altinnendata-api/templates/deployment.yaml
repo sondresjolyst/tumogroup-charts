@@ -46,10 +46,14 @@ spec:
             {{- end }}
             {{- range .Values.env }}
             - name: {{ .name }}
+              {{- if .secretKeyRef }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .secretKeyRef.key }}
                   name: {{ .secretKeyRef.name }}
+              {{- else }}
+              value: {{ .value | quote }}
+              {{- end }}
             {{- end }}
           {{- if .Values.persistence.enabled }}
           volumeMounts:
