@@ -662,4 +662,24 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/nstuning-app-0.1.1/nstuning-app-0.1.1.tgz
     version: 0.1.1
-generated: "2026-09-14T16:29:11.544500499Z"
+  pyttogpanne-api:
+  - apiVersion: v2
+    created: "2026-09-19T17:24:35.012390828Z"
+    description: A Helm chart for Kubernetes
+    digest: 4f6120f57d22d5081905994b95ee0f73c016ae9ab746b2ada95158035736a340
+    name: pyttogpanne-api
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/pyttogpanne-api-0.1.0/pyttogpanne-api-0.1.0.tgz
+    version: 0.1.0
+  pyttogpanne-app:
+  - apiVersion: v2
+    created: "2026-09-19T17:24:35.263676858Z"
+    description: A Helm chart for Kubernetes
+    digest: 77f636fb5b03a5bf2d2a1b33e0685b7c3931fa2a905cb261ae0ed80f7496ab95
+    name: pyttogpanne-app
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/pyttogpanne-app-0.1.0/pyttogpanne-app-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-09-19T17:24:35.263877693Z"
