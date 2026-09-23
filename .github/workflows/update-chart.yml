@@ -32,9 +32,22 @@ jobs:
 
       - name: Bump chart version and update image tag
         id: bump
+        env:
+          CHART_NAME: ${{ inputs.chart_name }}
+          TAG: ${{ inputs.tag }}
         run: |
-          CHART="charts/${{ inputs.chart_name }}/Chart.yaml"
-          VALUES="charts/${{ inputs.chart_name }}/values.yaml"
+          set -euo pipefail
+
+          case "$CHART_NAME" in
+            "" | *[!a-z0-9-]*) echo "Invalid chart name: $CHART_NAME" >&2; exit 1 ;;
+          esac
+          case "$TAG" in
+            v[0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "Invalid tag: $TAG" >&2; exit 1 ;;
+          esac
+
+          CHART="charts/$CHART_NAME/Chart.yaml"
+          VALUES="charts/$CHART_NAME/values.yaml"
 
           CURRENT=$(grep '^version:' "$CHART" | awk '{print $2}')
           MAJOR=$(echo "$CURRENT" | cut -d. -f1)
@@ -43,26 +56,31 @@ jobs:
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
 
           sed -i "s/^version: .*/version: $NEW_VERSION/" "$CHART"
-          sed -i "s/tag: \".*\"/tag: \"${{ inputs.tag }}\"/" "$VALUES"
+          sed -i "s/tag: \".*\"/tag: \"$TAG\"/" "$VALUES"
 
           echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create pull request
+        env:
+          GH_TOKEN: ${{ secrets.CHARTS_PAT }}
+          CHART_NAME: ${{ inputs.chart_name }}
+          TAG: ${{ inputs.tag }}
+          NEW_VERSION: ${{ steps.bump.outputs.new_version }}
         run: |
-          BRANCH="chore/update-${{ inputs.chart_name }}-${{ inputs.tag }}"
+          set -euo pipefail
+
+          BRANCH="chore/update-$CHART_NAME-$TAG"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          git add "charts/${{ inputs.chart_name }}/Chart.yaml" "charts/${{ inputs.chart_name }}/values.yaml"
-          git commit -m "chore: update ${{ inputs.chart_name }} to ${{ inputs.tag }}"
+          git add "charts/$CHART_NAME/Chart.yaml" "charts/$CHART_NAME/values.yaml"
+          git commit -m "chore: update $CHART_NAME to $TAG"
           git push origin "$BRANCH"
 
           gh pr create \
             --repo sondresjolyst/tumogroup-charts \
-            --title "chore: update ${{ inputs.chart_name }} to ${{ inputs.tag }}" \
-            --body "Updates \`${{ inputs.chart_name }}\` image tag to \`${{ inputs.tag }}\` and bumps chart version to \`${{ steps.bump.outputs.new_version }}\`." \
+            --title "chore: update $CHART_NAME to $TAG" \
+            --body "Updates \`$CHART_NAME\` image tag to \`$TAG\` and bumps chart version to \`$NEW_VERSION\`." \
             --base main \
             --head "$BRANCH"
-        env:
-          GH_TOKEN: ${{ secrets.CHARTS_PAT }}
