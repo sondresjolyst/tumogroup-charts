@@ -1,0 +1,13 @@
+{{- if gt (int .Values.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "pyttogpanne-app.fullname" . }}
+  labels:
+    {{- include "pyttogpanne-app.labels" . | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "pyttogpanne-app.selectorLabels" . | nindent 6 }}
+{{- end }}

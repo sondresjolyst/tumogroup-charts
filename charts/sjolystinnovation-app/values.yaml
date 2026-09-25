@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/sjolystinnovation-app
   pullPolicy: IfNotPresent
-  tag: "v1.1.0"
+  tag: "v1.1.1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -29,19 +29,28 @@ securityContext:
     drop:
       - ALL
 
+startupProbe:
+  httpGet:
+    path: /
+    port: http
+  periodSeconds: 5
+  failureThreshold: 12
+
 readinessProbe:
   httpGet:
     path: /
     port: http
-  initialDelaySeconds: 5
   periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
 
 livenessProbe:
   httpGet:
     path: /
     port: http
-  initialDelaySeconds: 20
   periodSeconds: 20
+  timeoutSeconds: 3
+  failureThreshold: 3
 
 service:
   type: ClusterIP

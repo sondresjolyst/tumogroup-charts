@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "pyttogpanne-api.labels" . | nindent 4 }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "pyttogpanne-api.selectorLabels" . | nindent 6 }}
@@ -25,6 +26,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "pyttogpanne-api.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -37,6 +39,18 @@ spec:
             - name: http
               containerPort: 7297
               protocol: TCP
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -46,23 +60,37 @@ spec:
             {{- end }}
             {{- range .Values.env }}
             - name: {{ .name }}
+              {{- if .secretKeyRef }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .secretKeyRef.key }}
                   name: {{ .secretKeyRef.name }}
+              {{- else if hasKey . "value" }}
+              value: {{ .value | quote }}
+              {{- else }}
+              {{- fail (printf "env entry %s has neither value nor secretKeyRef" .name) }}
+              {{- end }}
             {{- end }}
-          {{- if .Values.persistence.enabled }}
           volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: dataprotection
+              mountPath: /home/app/.aspnet
+          {{- if .Values.persistence.enabled }}
             - name: data
               mountPath: {{ .Values.persistence.imagesPath }}
               subPath: {{ .Values.persistence.imagesSubPath }}
           {{- end }}
-      {{- if .Values.persistence.enabled }}
       volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: dataprotection
+          emptyDir: {}
+        {{- if .Values.persistence.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "pyttogpanne-api.fullname" . }}-data
-      {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/nstuning-app
   pullPolicy: IfNotPresent
-  tag: "v1.6.12"
+  tag: "v1.6.13"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -11,11 +11,47 @@ fullnameOverride: ""
 
 serviceAccount: {}
 
+automountServiceAccountToken: false
+
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  seccompProfile:
+    type: RuntimeDefault
 
-securityContext: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+startupProbe:
+  httpGet:
+    path: /
+    port: http
+  periodSeconds: 5
+  failureThreshold: 12
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  periodSeconds: 20
+  timeoutSeconds: 3
+  failureThreshold: 3
 
 service:
   type: ClusterIP

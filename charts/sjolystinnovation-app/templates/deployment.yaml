@@ -36,6 +36,10 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- with .Values.readinessProbe }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
@@ -49,10 +53,16 @@ spec:
           env:
             {{- range .Values.env }}
             - name: {{ .name }}
+              {{- if .secretKeyRef }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .secretKeyRef.key }}
                   name: {{ .secretKeyRef.name }}
+              {{- else if hasKey . "value" }}
+              value: {{ .value | quote }}
+              {{- else }}
+              {{- fail (printf "env entry %s has neither value nor secretKeyRef" .name) }}
+              {{- end }}
             {{- end }}
           volumeMounts:
             - name: cache

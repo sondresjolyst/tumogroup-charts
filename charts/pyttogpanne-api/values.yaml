@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/pyttogpanne-api
   pullPolicy: IfNotPresent
-  tag: "v1.0.1"
+  tag: "v1.0.2"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -11,13 +11,51 @@ fullnameOverride: ""
 
 serviceAccount: {}
 
+automountServiceAccountToken: false
+
 podAnnotations: {}
 
 podLabels: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1654
+  runAsGroup: 1654
+  fsGroup: 1654
+  seccompProfile:
+    type: RuntimeDefault
 
-securityContext: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+# Gives a slow start, such as a long database migration, room to finish before the
+# liveness probe can restart the pod.
+startupProbe:
+  httpGet:
+    path: /health
+    port: http
+  periodSeconds: 10
+  failureThreshold: 30
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: http
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  periodSeconds: 20
+  timeoutSeconds: 3
+  failureThreshold: 3
 
 service:
   type: ClusterIP
