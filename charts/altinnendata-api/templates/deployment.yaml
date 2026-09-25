@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "altinnendata-api.labels" . | nindent 4 }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "altinnendata-api.selectorLabels" . | nindent 6 }}
@@ -25,6 +26,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "altinnendata-api.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -37,6 +39,14 @@ spec:
             - name: http
               containerPort: 7297
               protocol: TCP
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -51,18 +61,26 @@ spec:
                   key: {{ .secretKeyRef.key }}
                   name: {{ .secretKeyRef.name }}
             {{- end }}
-          {{- if .Values.persistence.enabled }}
           volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: dataprotection
+              mountPath: /home/app/.aspnet
+          {{- if .Values.persistence.enabled }}
             - name: data
               mountPath: {{ .Values.persistence.imagesPath }}
               subPath: {{ .Values.persistence.imagesSubPath }}
           {{- end }}
-      {{- if .Values.persistence.enabled }}
       volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: dataprotection
+          emptyDir: {}
+        {{- if .Values.persistence.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "altinnendata-api.fullname" . }}-data
-      {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

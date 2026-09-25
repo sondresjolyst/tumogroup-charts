@@ -1,0 +1,13 @@
+{{- if gt (int .Values.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "altinnendata-app.fullname" . }}
+  labels:
+    {{- include "altinnendata-app.labels" . | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "altinnendata-app.selectorLabels" . | nindent 6 }}
+{{- end }}
