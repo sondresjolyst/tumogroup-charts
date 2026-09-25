@@ -53,10 +53,14 @@ spec:
           env:
             {{- range .Values.env }}
             - name: {{ .name }}
+              {{- if .secretKeyRef }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .secretKeyRef.key }}
                   name: {{ .secretKeyRef.name }}
+              {{- else }}
+              value: {{ .value | quote }}
+              {{- end }}
             {{- end }}
           volumeMounts:
             - name: cache

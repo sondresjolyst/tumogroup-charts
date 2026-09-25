@@ -22,6 +22,8 @@ podSecurityContext:
   runAsUser: 1654
   runAsGroup: 1654
   fsGroup: 1654
+  # The share is ReadWriteMany over NFS, so only chown it when the root is wrong.
+  fsGroupChangePolicy: OnRootMismatch
   seccompProfile:
     type: RuntimeDefault
 
