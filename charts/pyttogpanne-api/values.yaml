@@ -32,19 +32,30 @@ securityContext:
     drop:
       - ALL
 
-readinessProbe:
+# Gives a slow start, such as a long database migration, room to finish before the
+# liveness probe can restart the pod.
+startupProbe:
   httpGet:
     path: /health
     port: http
-  initialDelaySeconds: 10
   periodSeconds: 10
+  failureThreshold: 30
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: http
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
 
 livenessProbe:
   httpGet:
     path: /health
     port: http
-  initialDelaySeconds: 30
   periodSeconds: 20
+  timeoutSeconds: 3
+  failureThreshold: 3
 
 service:
   type: ClusterIP
