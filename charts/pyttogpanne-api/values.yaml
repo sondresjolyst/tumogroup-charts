@@ -1,5 +1,10 @@
 replicaCount: 1
 
+# Recreate, not RollingUpdate: the API applies pending EF migrations at startup,
+# so the old pod must stop before the new one migrates the schema.
+strategy:
+  type: Recreate
+
 image:
   repository: sondresjo/pyttogpanne-api
   pullPolicy: IfNotPresent
