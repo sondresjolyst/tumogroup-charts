@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
 
+# Two releases at once overwrite each other's index.yaml on gh-pages, so run them one after another.
+concurrency:
+  group: release-charts
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-24.04
