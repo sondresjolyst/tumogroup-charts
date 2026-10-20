@@ -78,8 +78,9 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-            - name: dataprotection
-              mountPath: /home/app/.aspnet
+            # Chromium writes its profile and crash data under the home folder, and the root filesystem is read-only.
+            - name: home
+              mountPath: /home/app
           {{- if .Values.persistence.enabled }}
             - name: data
               mountPath: {{ .Values.persistence.imagesPath }}
@@ -88,7 +89,7 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
-        - name: dataprotection
+        - name: home
           emptyDir: {}
         {{- if .Values.persistence.enabled }}
         - name: data
