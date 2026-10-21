@@ -1170,6 +1170,15 @@ entries:
     version: 0.1.0
   sjolystinnovation-app:
   - apiVersion: v2
+    created: "2026-10-21T06:14:28.680492712Z"
+    description: A Helm chart for Kubernetes
+    digest: cf6363529baf9c119032bd864b9fd645bb944005863609fa61ee9c32d01f1f39
+    name: sjolystinnovation-app
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/sjolystinnovation-app-0.1.8/sjolystinnovation-app-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
     created: "2026-10-18T15:44:37.795173436Z"
     description: A Helm chart for Kubernetes
     digest: 1cef9d43e935204b9c959098d94dc889cde73b14569363ecb211cdf8a4a32d66
@@ -1241,4 +1250,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/sjolystinnovation-app-0.1.0/sjolystinnovation-app-0.1.0.tgz
     version: 0.1.0
-generated: "2026-10-20T19:20:08.324953347Z"
+generated: "2026-10-21T06:14:28.680692171Z"
