@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/nstuning-app
   pullPolicy: IfNotPresent
-  tag: "v1.7.4"
+  tag: "v1.8.0"
 
 imagePullSecrets: []
 nameOverride: ""
