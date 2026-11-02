@@ -57,17 +57,19 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   annotations: {}
-  hosts:
-    - host: tumogroup-monitor.local
-      paths:
-        - path: /health
-          pathType: Prefix
+  hosts: []
   tls: []
 
-resources: {}
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
 
 nodeSelector: {}
 
@@ -84,5 +86,11 @@ cronjob:
   activeDeadlineSeconds: 600
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 3
-  resources: {}
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
   env: []
