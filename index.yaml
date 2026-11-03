@@ -1574,4 +1574,14 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/sjolystinnovation-app-0.1.0/sjolystinnovation-app-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-01T18:57:59.730969082Z"
+  tumogroup-monitor:
+  - apiVersion: v2
+    created: "2026-11-03T15:08:03.487583325Z"
+    description: Next.js status page and refresh CronJob for tumogroup-monitor
+    digest: aa636fe5a8815954740266bbb6d3f48afe772b27519739475b8c89e1bf0754a1
+    name: tumogroup-monitor
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.0/tumogroup-monitor-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-11-03T15:08:03.488080688Z"
