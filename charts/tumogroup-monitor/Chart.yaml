@@ -1,0 +1,7 @@
+apiVersion: v2
+name: tumogroup-monitor
+description: Next.js status page and refresh CronJob for tumogroup-monitor
+
+type: application
+
+version: 0.1.0

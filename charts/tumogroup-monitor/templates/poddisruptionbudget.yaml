@@ -1,0 +1,13 @@
+{{- if gt (int .Values.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "tumogroup-monitor.fullname" . }}
+  labels:
+    {{- include "tumogroup-monitor.labels" . | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "tumogroup-monitor.selectorLabels" . | nindent 6 }}
+{{- end }}
