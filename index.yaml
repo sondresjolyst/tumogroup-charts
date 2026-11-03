@@ -1576,6 +1576,15 @@ entries:
     version: 0.1.0
   tumogroup-monitor:
   - apiVersion: v2
+    created: "2026-11-03T16:57:40.9754501Z"
+    description: Next.js status page and refresh CronJob for tumogroup-monitor
+    digest: fe3ee4a52b3f65e49f4291cae9aba003f52d79cac17c025f52bf07b594954eed
+    name: tumogroup-monitor
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.2/tumogroup-monitor-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2026-11-03T15:20:37.272072737Z"
     description: Next.js status page and refresh CronJob for tumogroup-monitor
     digest: 9431571fa7a940dc2e32afbf253c3bfc5662312c44206d55504de1ab9326815c
@@ -1584,4 +1593,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.1/tumogroup-monitor-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-03T15:20:37.272394396Z"
+generated: "2026-11-03T16:57:40.975721771Z"
