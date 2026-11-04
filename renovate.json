@@ -5,7 +5,7 @@
   ],
   "packageRules": [
     {
-      "description": "The release workflow sets these images and their digests",
+      "description": "The update-chart workflow sets these images and their digests",
       "matchPackageNames": ["sondresjo/**"],
       "enabled": false
     }
