@@ -57,7 +57,16 @@ jobs:
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
 
           sed -i "s/^version: .*/version: $NEW_VERSION/" "$CHART"
-          sed -i "s/tag: \".*\"/tag: \"$TAG\"/" "$VALUES"
+          IMAGE=$(grep -E '^\s+repository:' "$VALUES" | head -n 1 | awk '{print $2}')
+          DIGEST=$(docker buildx imagetools inspect "$IMAGE:$TAG" --format '{{.Manifest.Digest}}')
+          # Anchored, so only a full digest can reach the sed expression below.
+          if [[ ! "$DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "Invalid digest for $IMAGE:$TAG: $DIGEST" >&2
+            exit 1
+          fi
+          sed -i "s/tag: \".*\"/tag: \"$TAG@$DIGEST\"/" "$VALUES"
+          # Stops the job when the tag line was not replaced, such as an unquoted or missing tag.
+          grep -qF "tag: \"$TAG@$DIGEST\"" "$VALUES"
 
           echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
