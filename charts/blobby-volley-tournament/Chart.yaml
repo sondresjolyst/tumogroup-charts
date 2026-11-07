@@ -1,0 +1,7 @@
+apiVersion: v2
+name: blobby-volley-tournament
+description: Next.js site for the Blobby Volley LAN tournament, with database migrations in an init container
+
+type: application
+
+version: 0.1.0
