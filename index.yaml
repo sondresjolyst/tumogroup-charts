@@ -614,6 +614,17 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/altinnendata-app-0.1.1/altinnendata-app-0.1.1.tgz
     version: 0.1.1
+  blobby-volley-tournament:
+  - apiVersion: v2
+    created: "2026-11-07T07:14:59.923477196Z"
+    description: Next.js site for the Blobby Volley LAN tournament, with database
+      migrations in an init container
+    digest: 7473a908cbf668417fd7f450f2692cab4d2202701ed02d7c8653dd5816692087
+    name: blobby-volley-tournament
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/blobby-volley-tournament-0.1.0/blobby-volley-tournament-0.1.0.tgz
+    version: 0.1.0
   bobby-api:
   - apiVersion: v2
     created: "2026-07-12T15:19:31.945454891Z"
@@ -1593,4 +1604,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.1/tumogroup-monitor-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-03T16:57:40.975721771Z"
+generated: "2026-11-07T07:14:59.923842512Z"
