@@ -1,4 +1,4 @@
-The game server listens on UDP port {{ .Values.service.port }} of the Service {{ include "blobby-server.fullname" . }}.
+The game server listens on UDP port {{ include "blobby-server.servicePort" . }} of the Service {{ include "blobby-server.fullname" . }}.
 {{- if contains "LoadBalancer" .Values.service.type }}
 It may take a minute for the LoadBalancer address to show:
   kubectl get --namespace {{ .Release.Namespace }} svc {{ include "blobby-server.fullname" . }}
