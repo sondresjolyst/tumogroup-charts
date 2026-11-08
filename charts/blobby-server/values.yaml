@@ -39,10 +39,15 @@ securityContext:
 # The server only speaks UDP and the image has no tool to check it, so there are no probes.
 # Only an exit of the server process restarts the container. A server that hangs keeps running.
 
+server:
+  # The UDP port the server listens on, set as BLOBBY_PORT. The game moves to the port the server
+  # reports after the first contact, so players must reach the server on this same port.
+  port: 1234
+
 service:
   type: LoadBalancer
-  # The port players connect to. The container always listens on UDP 1234.
-  port: 1234
+  # The port players connect to. Empty uses server.port. Keep it equal to server.port.
+  port: ""
   # Local keeps the real address of each player instead of the address of a node.
   externalTrafficPolicy: Local
   # Optional fixed address from the MetalLB pool. Empty lets MetalLB pick one.
@@ -72,4 +77,5 @@ tolerations: []
 affinity: {}
 
 # Each entry has a value or a secretKeyRef. BLOBBY_DATA_DIR is /data in the image.
+# BLOBBY_PORT comes from server.port, so do not set it here.
 env: []

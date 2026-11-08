@@ -66,6 +66,9 @@ Render a list of env entries. Each entry has a value or a secretKeyRef.
 */}}
 {{- define "blobby-server.env" -}}
 {{- range . }}
+{{- if eq .name "BLOBBY_PORT" }}
+{{- fail "set server.port instead of BLOBBY_PORT in env" }}
+{{- end }}
 - name: {{ .name }}
   {{- if .secretKeyRef }}
   valueFrom:
@@ -78,4 +81,31 @@ Render a list of env entries. Each entry has a value or a secretKeyRef.
   {{- fail (printf "env entry %s has neither value nor secretKeyRef" .name) }}
   {{- end }}
 {{- end }}
+{{- end }}
+
+{{/*
+The UDP port the server listens on. It must be a whole number from 1 to 65535.
+*/}}
+{{- define "blobby-server.port" -}}
+{{- $port := .Values.server.port | toString -}}
+{{- if not (regexMatch "^[1-9][0-9]{0,4}$" $port) -}}
+{{- fail (printf "server.port must be a number from 1 to 65535, not %s" $port) -}}
+{{- end -}}
+{{- if gt (atoi $port) 65535 -}}
+{{- fail (printf "server.port must be a number from 1 to 65535, not %s" $port) -}}
+{{- end -}}
+{{- $port -}}
+{{- end }}
+
+{{/*
+The port of the Service. Empty uses server.port. The game needs both to be the same.
+*/}}
+{{- define "blobby-server.servicePort" -}}
+{{- $port := include "blobby-server.port" . -}}
+{{- with .Values.service.port -}}
+{{- if ne (toString .) $port -}}
+{{- fail (printf "service.port %v must match server.port %s, because the game moves to the port the server reports" . $port) -}}
+{{- end -}}
+{{- end -}}
+{{- $port -}}
 {{- end }}

@@ -40,14 +40,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: game
-              containerPort: 1234
+              containerPort: {{ include "blobby-server.port" . }}
               protocol: UDP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.env }}
           env:
+            - name: BLOBBY_PORT
+              value: {{ include "blobby-server.port" . | quote }}
+            {{- with .Values.env }}
             {{- include "blobby-server.env" . | nindent 12 }}
-          {{- end }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /data

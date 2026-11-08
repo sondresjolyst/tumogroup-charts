@@ -19,7 +19,7 @@ spec:
   externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   {{- end }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ include "blobby-server.servicePort" . }}
       targetPort: game
       protocol: UDP
       name: game
