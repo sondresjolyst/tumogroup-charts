@@ -8,7 +8,7 @@ strategy:
 image:
   repository: sondresjo/pyttogpanne-api
   pullPolicy: IfNotPresent
-  tag: "v1.3.2"
+  tag: "v1.3.3@sha256:8b1d2c9c85e432283ce35c73fd28a57ca7c6c6803a602be81b4d217f0dd372de"
 
 imagePullSecrets: []
 nameOverride: ""
