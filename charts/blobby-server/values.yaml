@@ -28,6 +28,7 @@ podSecurityContext:
   seccompProfile:
     type: RuntimeDefault
 
+# The server writes only to /data and /tmp, which are volumes, so the root filesystem can be read-only.
 securityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
@@ -36,7 +37,7 @@ securityContext:
       - ALL
 
 # The server only speaks UDP and the image has no tool to check it, so there are no probes.
-# Kubernetes restarts the container when the server process exits.
+# Only an exit of the server process restarts the container. A server that hangs keeps running.
 
 service:
   type: LoadBalancer
@@ -49,6 +50,8 @@ service:
   annotations: {}
 
 # Holds the players file, the results, the reports that wait for the site and the sponsors.
+# fsGroup does not apply on NFS. On an NFS class the server can write /data only when the share
+# lets uid 999 write, such as democratic-csi with datasetPermissionsMode 0777.
 persistence:
   enabled: true
   storageClass: ""
