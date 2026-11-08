@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/sjolystinnovation-app
   pullPolicy: IfNotPresent
-  tag: "v1.4.6"
+  tag: "v1.4.7@sha256:e7c13290a68a638db5c24c75deb84ee5a77f2e26d37a0a2678a8a0a0844a473f"
 
 imagePullSecrets: []
 nameOverride: ""
