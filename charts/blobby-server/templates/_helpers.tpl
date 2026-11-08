@@ -102,9 +102,10 @@ The port of the Service. Empty uses server.port. The game needs both to be the s
 */}}
 {{- define "blobby-server.servicePort" -}}
 {{- $port := include "blobby-server.port" . -}}
-{{- with .Values.service.port -}}
-{{- if ne (toString .) $port -}}
-{{- fail (printf "service.port %v must match server.port %s, because the game moves to the port the server reports" . $port) -}}
+{{- $servicePort := .Values.service.port -}}
+{{- if and (not (kindIs "invalid" $servicePort)) (ne (toString $servicePort) "") -}}
+{{- if ne (toString $servicePort) $port -}}
+{{- fail (printf "service.port %v must match server.port %s, because the game moves to the port the server reports" $servicePort $port) -}}
 {{- end -}}
 {{- end -}}
 {{- $port -}}
