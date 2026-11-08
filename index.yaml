@@ -634,6 +634,16 @@ entries:
     version: 0.1.1
   blobby-server:
   - apiVersion: v2
+    created: "2026-11-08T16:13:34.037048719Z"
+    description: Blobby Volley 2 dedicated server for the LAN tournament, on UDP behind
+      a LoadBalancer Service
+    digest: b06bb83f8db706dddad934ca16b13d72e17f60fa767918a7f5055989bf2da6cd
+    name: blobby-server
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/blobby-server-0.2.0/blobby-server-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2026-11-08T15:47:46.831694469Z"
     description: Blobby Volley 2 dedicated server for the LAN tournament, on UDP behind
       a LoadBalancer Service
@@ -1728,4 +1738,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.1/tumogroup-monitor-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-08T15:47:46.832274392Z"
+generated: "2026-11-08T16:13:34.038538417Z"
