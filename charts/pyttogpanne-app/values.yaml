@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/pyttogpanne-app
   pullPolicy: IfNotPresent
-  tag: "v1.1.4"
+  tag: "v1.1.5@sha256:66dc0fb7fee40c75da442f807328201e41b1849c081ad40954c6340ad2f5249d"
 
 imagePullSecrets: []
 nameOverride: ""
