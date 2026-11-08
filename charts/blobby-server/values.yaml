@@ -1,0 +1,75 @@
+# The server keeps its state in /data, so it runs as one replica and the old pod stops before the new one starts.
+replicaCount: 1
+
+strategy:
+  type: Recreate
+
+image:
+  repository: sondresjo/blobby-server
+  pullPolicy: IfNotPresent
+  # dev follows the main branch of the game. Releases are tagged by version, such as 0.1.0.
+  tag: "dev"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount: {}
+automountServiceAccountToken: false
+
+podAnnotations: {}
+
+# The image runs as the user blobby with uid 999.
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 999
+  runAsGroup: 999
+  fsGroup: 999
+  seccompProfile:
+    type: RuntimeDefault
+
+# The server writes only to /data and /tmp, which are volumes, so the root filesystem can be read-only.
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+# The server only speaks UDP and the image has no tool to check it, so there are no probes.
+# Only an exit of the server process restarts the container. A server that hangs keeps running.
+
+service:
+  type: LoadBalancer
+  # The port players connect to. The container always listens on UDP 1234.
+  port: 1234
+  # Local keeps the real address of each player instead of the address of a node.
+  externalTrafficPolicy: Local
+  # Optional fixed address from the MetalLB pool. Empty lets MetalLB pick one.
+  loadBalancerIP: ""
+  annotations: {}
+
+# Holds the players file, the results, the reports that wait for the site and the sponsors.
+# fsGroup does not apply on NFS. On an NFS class the server can write /data only when the share
+# lets uid 999 write, such as democratic-csi with datasetPermissionsMode 0777.
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Each entry has a value or a secretKeyRef. BLOBBY_DATA_DIR is /data in the image.
+env: []

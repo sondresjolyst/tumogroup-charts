@@ -1,0 +1,7 @@
+apiVersion: v2
+name: blobby-server
+description: Blobby Volley 2 dedicated server for the LAN tournament, on UDP behind a LoadBalancer Service
+
+type: application
+
+version: 0.1.0
