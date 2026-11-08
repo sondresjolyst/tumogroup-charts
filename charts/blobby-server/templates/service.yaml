@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "blobby-server.fullname" . }}
+  labels:
+    {{- include "blobby-server.labels" . | nindent 4 }}
+  {{- if or .Values.service.annotations .Values.service.loadBalancerIP }}
+  annotations:
+    {{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.service.loadBalancerIP }}
+    metallb.universe.tf/loadBalancerIPs: {{ . | quote }}
+    {{- end }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  {{- if and (ne .Values.service.type "ClusterIP") .Values.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: game
+      protocol: UDP
+      name: game
+  selector:
+    {{- include "blobby-server.selectorLabels" . | nindent 4 }}

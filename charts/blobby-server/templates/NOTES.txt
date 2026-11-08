@@ -1,0 +1,7 @@
+The game server listens on UDP port {{ .Values.service.port }} of the Service {{ include "blobby-server.fullname" . }}.
+{{- if contains "LoadBalancer" .Values.service.type }}
+It may take a minute for the LoadBalancer address to show:
+  kubectl get --namespace {{ .Release.Namespace }} svc {{ include "blobby-server.fullname" . }}
+{{- end }}
+The server log:
+  kubectl logs --namespace {{ .Release.Namespace }} deployment/{{ include "blobby-server.fullname" . }}
