@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/blobby-volley-tournament
   pullPolicy: IfNotPresent
-  tag: "v0.6.0@sha256:e713558618e5057023b6117154ba2ace0d055ec2f458fbc67a07d5cac56f4b9a"
+  tag: "v0.7.0@sha256:e8b7cbc57e512b521fd1caf6d170ef2972aff29421a655116c8d19a85813c5f2"
 
 imagePullSecrets: []
 nameOverride: ""
