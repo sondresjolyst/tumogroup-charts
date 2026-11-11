@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   altinnendata-api:
   - apiVersion: v2
+    created: "2026-11-11T17:08:39.46942547Z"
+    description: A Helm chart for Kubernetes
+    digest: 665709bfbbe8eb1a8b10146a9a1702bae5efd207c336a6acdef5923446f4b92e
+    name: altinnendata-api
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/altinnendata-api-0.1.35/altinnendata-api-0.1.35.tgz
+    version: 0.1.35
+  - apiVersion: v2
     created: "2026-11-08T12:17:11.103164367Z"
     description: A Helm chart for Kubernetes
     digest: b641641452098f614e4e98c3b2639c0d0ad4debcf8cc00f58615a9b47754cc2d
@@ -1758,4 +1767,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.1/tumogroup-monitor-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-10T20:43:08.273185617Z"
+generated: "2026-11-11T17:08:39.469804053Z"
