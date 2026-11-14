@@ -7,7 +7,6 @@ strategy:
 image:
   repository: sondresjo/blobby-server
   pullPolicy: IfNotPresent
-  # The latest game release. The dev environment sets the dev tag, which follows the main branch.
   tag: "0.3.0@sha256:c8ace7942e4b2b61711f599c56a2634c9b16758b6d101346b4cd8ca2ef3c86e6"
 
 imagePullSecrets: []
