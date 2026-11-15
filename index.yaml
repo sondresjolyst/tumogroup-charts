@@ -738,6 +738,16 @@ entries:
     version: 0.1.0
   blobby-volley-tournament:
   - apiVersion: v2
+    created: "2026-11-15T14:58:36.398756444Z"
+    description: Next.js site for the Blobby Volley LAN tournament, with database
+      migrations in an init container
+    digest: 66719da84689a3bbd9d2e169527f73b27e858f2b70d51b3386d1ea396b209119
+    name: blobby-volley-tournament
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/blobby-volley-tournament-0.1.8/blobby-volley-tournament-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
     created: "2026-11-10T20:43:08.272844502Z"
     description: Next.js site for the Blobby Volley LAN tournament, with database
       migrations in an init container
@@ -1886,4 +1896,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.1/tumogroup-monitor-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-15T14:55:09.940356904Z"
+generated: "2026-11-15T14:58:36.399390045Z"
