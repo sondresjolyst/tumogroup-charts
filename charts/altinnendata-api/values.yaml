@@ -8,7 +8,7 @@ strategy:
 image:
   repository: sondresjo/altinnendata-api
   pullPolicy: IfNotPresent
-  tag: "v1.17.0@sha256:c2f20a35d673fe1492264a654d9ea8e6a69ec13f5a996b734422fbd96ab90a3b"
+  tag: "v1.17.1@sha256:c0ba2ff8293fd0fb81d4df33145334d0125396335a55630ea202f4931a358e3f"
 
 imagePullSecrets: []
 nameOverride: ""
