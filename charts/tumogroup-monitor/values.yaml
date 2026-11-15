@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/tumogroup-monitor
   pullPolicy: IfNotPresent
-  tag: "v0.2.0"
+  tag: "v0.2.1@sha256:583be7449df53faf1d87e768ba24c3992c846f970ece2b160c6a6a365b88c844"
 
 imagePullSecrets: []
 nameOverride: ""
