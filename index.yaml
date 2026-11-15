@@ -1542,6 +1542,15 @@ entries:
     version: 0.1.0
   pyttogpanne-app:
   - apiVersion: v2
+    created: "2026-11-15T13:43:22.774839443Z"
+    description: A Helm chart for Kubernetes
+    digest: 52b87eab7f28611963d6de89a83c0e791ebb554f9645a6e08d27264183288cc3
+    name: pyttogpanne-app
+    type: application
+    urls:
+    - https://github.com/sondresjolyst/tumogroup-charts/releases/download/pyttogpanne-app-0.1.13/pyttogpanne-app-0.1.13.tgz
+    version: 0.1.13
+  - apiVersion: v2
     created: "2026-11-08T12:17:11.282534697Z"
     description: A Helm chart for Kubernetes
     digest: c79d565d2d18d608746a93f3f552a227ce61cd5de331e2cea25936221f69b4e2
@@ -1813,4 +1822,4 @@ entries:
     urls:
     - https://github.com/sondresjolyst/tumogroup-charts/releases/download/tumogroup-monitor-0.1.1/tumogroup-monitor-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-14T17:02:55.65000429Z"
+generated: "2026-11-15T13:43:22.775187887Z"
