@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: sondresjo/altinnendata-app
   pullPolicy: IfNotPresent
-  tag: "v1.15.1@sha256:4e60eb7b245a3a81f28231829f88dcfe107eaba173b00aca06779b50e55168b6"
+  tag: "v1.15.2@sha256:f915a99057529fcabe98ded6e8d5cb7430d43a0e39ef5ddddede19d50fa242b0"
 
 imagePullSecrets: []
 nameOverride: ""
