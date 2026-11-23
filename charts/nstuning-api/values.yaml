@@ -8,7 +8,7 @@ strategy:
 image:
   repository: sondresjo/nstuning-api
   pullPolicy: IfNotPresent
-  tag: "v1.11.4@sha256:cb0ea210a2649f1ab16e390df1aad35c8f9092af671293c8d45e0b08e9e09fde"
+  tag: "v1.11.5@sha256:ab501650840bda590ddbbd548bf2e7a6ca3162db9d94c0d23a0fe6121a38d4b8"
 
 imagePullSecrets: []
 nameOverride: ""
